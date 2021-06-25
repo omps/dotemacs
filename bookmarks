@@ -14,7 +14,7 @@
  (position . 10175))
 ("org-capture-last-stored"
  (filename . "~/org/refile.org")
- (front-context-string . "* TODO Remined m")
- (rear-context-string)
- (position . 1))
+ (front-context-string . "* TODO Write the")
+ (rear-context-string . "3-08 Mon 13:17]\n")
+ (position . 302))
 )

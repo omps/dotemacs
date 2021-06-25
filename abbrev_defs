@@ -9,6 +9,8 @@
 
 (define-abbrev-table 'completion-list-mode-abbrev-table '())
 
+(define-abbrev-table 'debugger-mode-abbrev-table '())
+
 (define-abbrev-table 'diary-fancy-display-mode-abbrev-table '())
 
 (define-abbrev-table 'diary-mode-abbrev-table '())
@@ -30,6 +32,8 @@
 (define-abbrev-table 'global-abbrev-table '())
 
 (define-abbrev-table 'gnus-group-mode-abbrev-table '())
+
+(define-abbrev-table 'help-mode-abbrev-table '())
 
 (define-abbrev-table 'lisp-mode-abbrev-table '())
 
@@ -55,6 +59,8 @@
    ))
 
 (define-abbrev-table 'outline-mode-abbrev-table '())
+
+(define-abbrev-table 'package-menu-mode-abbrev-table '())
 
 (define-abbrev-table 'process-menu-mode-abbrev-table '())
 
