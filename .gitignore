@@ -37,3 +37,11 @@ site-lisp/package/
 /.sx/
 /org-clock-save.el
 /ditaa*.jar
+server/server
+transient/history.el
+.cache
+*.auth.*
+*auth*
+ido.last
+smex-items
+*.eld

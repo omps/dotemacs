@@ -10,7 +10,35 @@
     (error "Your Emacs is too old -- this config requires v%s or higher" minver)))
 (when (version<= emacs-version "24")
   (message "Your Emacs is old, and some functionality in this config will be disabled. Please upgrade if possible."))
+;;
+;;(setenv "PATH" (concat (getenv "PATH") ":D:\Program\\ Files\Emacs\Aspell\bin"))
+;;(setq exec-path (append exec-path '("D:\Program Files\Emacs\Aspell\bin")))
+(setenv "DICPATH"
+	(concat (getenv "HOME") "D:\\cygwin64\\usr\\share\\myspell\\"))
 
+(global-flycheck-mode)
+
+(use-package flycheck
+  :ensure t
+  :init
+  (global-flycheck-mode t))
+(setq ispell-program-name "D:\\cygwin64\\bin\\hunspell.exe")
+;; Custom hotkeys for spell checking in emacs.
+(global-unset-key (kbd "M-$"))  ;unbind emacs default key for ispell-word
+(global-set-key (kbd "<f7>") 'ispell-word)
+(global-set-key (kbd "C-<f7>") 'flyspell-mode)
+;;; Specify which dictionary to use at startup (english, ...). Uncomment one of the following lines:
+(setq ispell-dictionary "english")
+;; (setq-default ispell-program-name "aspell")
+
+;; encryption
+(setq epg-gpg-program "D:\\GnuPG\\bin\\gpg.exe")
+;; windows/dos GNUPG setup
+;; (if (memq system-type '(windows-nt ms-dos))
+;;     (custom-set-variables
+;;      '(epg-gpg-home-directory "C:\\GnuPG4")
+;;      '(epg-gpg-program (concat epg-gpg-home-directory "/bin/gpg.exe"))
+;;      '(epg-gpgconf-program  (concat epg-gpg-home-directory "/bin/gpgconf.exe"))))
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 ;; (require 'init-benchmarking) ;; Measure startup time
@@ -26,7 +54,6 @@
 (setq gc-cons-threshold (* 128 1024 1024))
 (add-hook 'after-init-hook
           (lambda () (setq gc-cons-threshold sanityinc/initial-gc-cons-threshold)))
-
 
 (defun load-directory (dir)
   (let ((load-it (lambda (f)
@@ -54,33 +81,6 @@
 
 ;; Do not show emacs welcome message
 (setq inhibit-startup-screen t)
-
-;; load emacs package repostiroies.
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")
-                         ("elpy" . "https://jorgenschaefer.github.io/packages/")))
-
-
-(add-to-list 'package-archives
-       '("melpa" . "http://melpa.org/packages/") t)
-
-(package-initialize)
-(when (not package-archive-contents)
-  (package-refresh-contents))
-
-(defvar myPackages
-  '(better-defaults
-    ein
-    elpy
-    flycheck
-    material-theme
-    py-autopep8))
-
-(mapc #'(lambda (package)
-    (unless (package-installed-p package)
-      (package-install package)))
-      myPackages)
 
 ;; backup files in seperate backup directory
 ;;(setq backup-directory-alist

@@ -5,16 +5,16 @@
 (require 'org)
 ;; dropbox and mobileorg specific configuration
 ;; set the location of org files on the local system.
-(setq org-directory "~/org")
+(setq org-directory "c:/Users/singho/Dropbox/org/todo")
 ;; name of the file where new notes will be stored.
-(setq org-mobile-inbox-for-pull "~/org/flaggednotepad.org")
+(setq org-mobile-inbox-for-pull "c:/Users/singho/Dropbox/org/flaggednotepad.org")
 ;; Dropbox root directory
-;; (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg") # Disable for office use. Dropbox not available.
+(setq org-mobile-directory "C:/Users/singho/Dropbox/Apps/MobileOrg") ;; Disable for office use. Dropbox not available.
 ;; org-mobile-push will copy your org files to the dropbox area.
 ;; org-mobile-pull to integrate the changes done on your mobile device.
 
 ;; org-agenda files
-(setq org-agenda-files '("~/org"))
+(setq org-agenda-files '("C:/Users/singho/Dropbox/org/todo"))
 
 ;; org mode global TODO keywords.
 (setq org-todo-keywords
@@ -48,26 +48,26 @@
 	      ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
 
 ;; Capture templates
-(setq org-default-notes-file "~/org/refile.org")
+(setq org-default-notes-file "C:/Users/singho/Dropbox/org/todo/refile.org")
 
 ;; C-c c to capture
 ;; capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
 (setq org-capture-templates
-      (quote (("t" "todo" entry (file "~/org/refile.org")
+      (quote (("t" "todo" entry (file "C:/Users/singho/Dropbox/org/todo/refile.org")
                    "* TODO %? \n%U\n%a\n" :clock-in t :clock-resume t)
-	      ("r" "respond" entry (file "~/org/refile.org")
+	      ("r" "respond" entry (file "C:/Users/singho/Dropbox/org/todo/refile.org")
                    "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
-	      ("n" "note" entry (file "~/org/refile.org")
+	      ("n" "note" entry (file "C:/Users/singho/Dropbox/org/todo/refile.org")
                    "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-	      ("j" "Journal" entry (file+datetree "~/org/diary.org")
+	      ("j" "Journal" entry (file+datetree "C:/Users/singho/Dropbox/org/journal/diary.org")
                    "* %? \n%U\n" :clock-in t :clock-resume t)
-	      ("w" "org-protocol" entry (file "~/org/refile.org")
+	      ("w" "org-protocol" entry (file "C:/Users/singho/Dropbox/org/todo/refile.org")
                    "* TODO Review %c\n%U\n" :immediate-finish t)
-	      ("m" "Meeting" entry (file "~/org/refile.org")
+	      ("m" "Meeting" entry (file "C:/Users/singho/Dropbox/org/todo/refile.org")
                    "* MEETING WITH %? :MEETING:\n%U" :clock-in t :clock-resume t)
-	      ("p" "Phone Call" entry (file "~/org/refile.org")
+	      ("p" "Phone Call" entry (file "C:/Users/singho/Dropbox/org/todo/refile.org")
                    "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-	      ("h" "Habit" entry (file "~/org/refile.org")
+	      ("h" "Habit" entry (file "C:/Users/singho/Dropbox/org/todo/refile.org")
                    "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
 ;; Remove empty drawers where the clock in and clock-out is set to zero
@@ -392,6 +392,24 @@ A prefix arg forces clock in of the default task."
 ;; Handelling notes
 
 ;; Phone Call setup
+;; Set up bbdb
+(require 'bbdb)
+(bbdb-initialize 'message)
+(bbdb-insinuate-message)
+(add-hook 'message-setup-hook 'bbdb-insinuate-mail)
+;; set up calendar
+(require 'calfw)
+(require 'calfw-ical)
+;; Set this to the URL of your calendar. Google users will use
+;; the Secret Address in iCalendar Format from the calendar settings
+(cfw:open-ical-calendar "https://calendar.google.com/calendar/ical/aoplus.academy%40gmail.com/private-0cfaf8666af5b5b8381310ae57d45b07/basic.ics")
+;; Set up notmuch
+(require 'notmuch)
+;; set up mail sending using sendmail
+(setq send-mail-function (quote sendmail-send-it))
+(setq user-mail-address "aoplus.academy@gmail.com"
+      user-full-name "Om Prakash Singh")
+
 ;; (require 'bbdb)
 ;; (require 'bbdb-com)
 ;; ;; Keybindings for phone calls in the keybindings.el
@@ -709,7 +727,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 
 ;; (add-hook 'org-babel-after-execute-hook 'omps/display-inline-images 'append)
 
-;; ; Make babel results blocks lowercase
+;; ;; ; Make babel results blocks lowercase
 ;; (setq org-babel-results-keyword "results")
 
 ;; (defun omps/display-inline-images ()
@@ -733,12 +751,12 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 ;;          (plantuml . t)
 ;;          (latex . t))))
 
-;; ; Do not prompt to confirm evaluation
-;; ; This may be dangerous - make sure you understand the consequences
-;; ; of setting this -- see the docstring for details
-;; (setq org-confirm-babel-evaluate nil)
+;; ;; ; Do not prompt to confirm evaluation
+;; ;; ; This may be dangerous - make sure you understand the consequences
+;; ;; ; of setting this -- see the docstring for details
+;; ;; (setq org-confirm-babel-evaluate nil)
 
-;; ; Use fundamental mode when editing plantuml blocks with C-c '
+;; ;; ; Use fundamental mode when editing plantuml blocks with C-c '
 ;; (add-to-list 'org-src-lang-modes (quote ("plantuml" . fundamental)))
 
 ;; Don't enable this because it breaks access to emacs from my Android phone
@@ -751,11 +769,11 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 ;; (setq org-export-docbook-xslt-proc-command "xsltproc --output %s /usr/share/xml/docbook/stylesheet/nwalsh/fo/docbook.xsl %s")
 ;; ;
 ;; ; Inline images in HTML instead of producting links to the image
-;; (setq org-html-inline-images t)
+(setq org-html-inline-images t)
 ;; ; Do not use sub or superscripts - I currently don't need this functionality in my documents
 ;; (setq org-export-with-sub-superscripts nil)
 ;; ; Use org.css from the norang website for export document stylesheets
-;; (setq org-html-head-extra "<link rel=\"stylesheet\" href=\"http://doc.norang.ca/org.css\" type=\"text/css\" />")
+(setq org-html-head-extra "<link rel=\"stylesheet\" href=\"http://doc.norang.ca/org.css\" type=\"text/css\" />")
 ;; (setq org-html-head-include-default-style nil)
 ;; ; Do not generate internal css formatting for HTML exports
 ;; (setq org-export-htmlize-output-type (quote css))
@@ -1332,7 +1350,7 @@ so change the default 'F' binding in the agenda to allow both"
 (setq org-agenda-skip-timestamp-if-done t)
 
 (setq org-agenda-include-diary nil)
-(setq org-agenda-diary-file "~/org/diary.org")
+(setq org-agenda-diary-file "C:/Users/singho/Dropbox/org/journal/diary.org")
 
 (setq org-agenda-insert-diary-extract-time t)
 
@@ -1798,3 +1816,16 @@ Late deadlines first, then scheduled, then non-late deadlines"
 
 ;; automatic hourly commits this saves all buffers for the commit.
 (run-at-time "00:59" 3600 'org-save-all-org-buffers)
+
+
+;; Todo.txt
+(require 'todotxt)
+(setq todotxt-file (expand-file-name "~/.todo/todo.txt"))
+
+;; Twitter
+(require 'twittering-mode)
+(setq twittering-use-master-password t)
+(setq twittering-icon-mode t)
+
+;; Python3 for nnreddit
+(setq elpy-rpc-python-command "python3")

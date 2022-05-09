@@ -1,1 +1,1 @@
-("~/.emacs.d/" "d:/Users/singho/Projects/omps.github.io/" "~/org/")
+("~/.emacs.d/" "c:/Users/singho/Dropbox/org/" "d:/Users/singho/Projects/omps.github.io/")
